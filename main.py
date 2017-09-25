@@ -1,27 +1,29 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, render_template
 import cgi
 import os
-import jinja2
+import re
 
-template_dir = os.path.join(os.path.dirname(__file__),
-    r'C:\Users\knhou\Google Drive\lc101\user-signup\templates')
-
-jinja_env = jinja2.Environment(
-    loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
 @app.route("/")
 def index():
-    template = jinja_env.get_template('hello_form.html')
-    return template.render()
+    encoded_error = request.args.get("error")
+    return render_template('form.html', error=encoded_error and cgi.escape(encoded_error, quote=True))
 
-@app.route("/hello", methods=['post'])
-def hello():
-    first_name = request.form['first_name']
-    template = jinja_env.get_template('hello_greeting.html')
-    return template.render(name=first_name)
+@app.route("/sign-up", methods=['POST'])
+def sign_up():
+    username = request.form['username']
+    password = request.form['password']
+    passconf = request.form['passconf']
+    emailadd = request.form['emailadd']
+
+
+
+
+
+    return render_template('confirmation.html',username=username)
 
 
 app.run()

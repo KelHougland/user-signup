@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/sign-up" method="POST">
+
+    <label>
+        Username:<input type='text' name='username'/>    
+    </label>
+    <br>
+    <label>
+            Password:<input type='password' name='password'/>    
+    </label>
+    <br>
+    <label>
+            Confirm Password:<input type='password' name='passconf'/>    
+    </label>
+    <br>
+    <label>
+            Email Address:<input type='text' name='emailadd'/>    
+    </label>    
+    <br>
+    <input type="submit" value="Register"/>
+
+</form>
+
+{% if error %}
+<p class='error'>{{ error }}</p>
+{% endif %}
+
+{% endblock %}
