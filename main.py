@@ -7,7 +7,7 @@ template_dir = os.path.join(os.path.dirname(__file__),
     r'C:\Users\knhou\Google Drive\lc101\user-signup\templates')
 
 jinja_env = jinja2.Environment(
-    loader = jinja2.FileSystemLoader(template_dir))
+    loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -20,9 +20,8 @@ def index():
 @app.route("/hello", methods=['post'])
 def hello():
     first_name = request.form['first_name']
-    first_name = cgi.escape(first_name)
     template = jinja_env.get_template('hello_greeting.html')
-    return "<h1>Hello, {0}!</h1>".format(first_name)
+    return template.render(name=first_name)
 
 
 app.run()
