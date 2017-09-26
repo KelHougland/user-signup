@@ -4,28 +4,64 @@
 
 <form action="/sign-up" method="POST">
 
-    <label>
-        Username:<input type='text' name='username' value='{{user}}'/>    
-    </label>
-    <br>
-    <label>
-            Password:<input type='password' name='password'/>    
-    </label>
-    <br>
-    <label>
-            Confirm Password:<input type='password' name='passconf'/>    
-    </label>
-    <br>
-    <label>
-            Email Address:<input type='text' name='emailadd' value = '{{emadd}}'/>    
-    </label>    
-    <br>
-    <input type="submit" value="Register"/>
+    <table>
+        <tr>
+            <td>
+                <label for='username'>Username</label>
+            </td>
+            <td>
+                <input type='text' name='username' value='{{user}}'/>
+                {% if errorloc == a %}
+                <span class='error'>{{ error }}</span>
+                {% endif %}
+                 
+            </td>   
+        </tr>
+
+        <tr>
+            <td>
+                <label for='password'>Password</label>
+            </td>
+            <td>
+                <input type='password' name='password'/>
+                {% if errororloc == b %}
+                <span class='error'>{{ error }}</span>
+                {% endif %}
+                    
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for='passconf'>Confirm Password</label>
+            </td>
+            <td>
+                <input type='password' name='passconf'/>
+                {% if errorloc == c %}
+                <span class='error'>{{ error }}</span>
+                {% endif %}
+                
+            </td>    
+        </tr>
+        <tr>
+            <td>
+                <label for='emailadd'>Email Address</label>
+            </td>
+            <td>
+                <input type='text' name='emailadd' value = '{{emadd}}'/>
+                {% if errorloc == d %}
+                <span class='error'>{{ error }}</span>
+                {% endif %}
+                
+            </td>    
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Register"/>
+            </td>
+        </tr>
+    </table>
 
 </form>
 
-{% if error %}
-<p class='error'>{{ error }}</p>
-{% endif %}
 
 {% endblock %}
