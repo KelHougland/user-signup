@@ -11,8 +11,8 @@
             </td>
             <td>
                 <input type='text' name='username' value='{{user}}'/>
-                {% if errorloc == a %}
-                <span class='error'>{{ error }}</span>
+                {% if usererror %}
+                <span class='error'>{{ usererror }}</span>
                 {% endif %}
                  
             </td>   
@@ -24,8 +24,8 @@
             </td>
             <td>
                 <input type='password' name='password'/>
-                {% if errororloc == b %}
-                <span class='error'>{{ error }}</span>
+                {% if passerror %}
+                <span class='error'>{{ passerror }}</span>
                 {% endif %}
                     
             </td>
@@ -36,8 +36,8 @@
             </td>
             <td>
                 <input type='password' name='passconf'/>
-                {% if errorloc == c %}
-                <span class='error'>{{ error }}</span>
+                {% if conferror %}
+                <span class='error'>{{ conferror }}</span>
                 {% endif %}
                 
             </td>    
@@ -48,8 +48,8 @@
             </td>
             <td>
                 <input type='text' name='emailadd' value = '{{emadd}}'/>
-                {% if errorloc == d %}
-                <span class='error'>{{ error }}</span>
+                {% if emailerror %}
+                <span class='error'>{{ emailerror }}</span>
                 {% endif %}
                 
             </td>    

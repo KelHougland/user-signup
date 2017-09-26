@@ -23,11 +23,14 @@ def invalid_email(address):
         return False
 
 
+
 @app.route("/")
 def index():
-    encoded_error = request.args.get("error")
-    errorloc = request.args.get('errorloc')
-    return render_template('form.html',emadd = emadd, user = user, errorloc = errorloc, error=encoded_error and cgi.escape(encoded_error, quote=True))
+    usererror = request.args.get("usererror")
+    passerror = request.args.get("passerror")
+    conferror = request.args.get("conferror")
+    emailerror = request.args.get("emailerror")
+    return render_template('form.html',emadd = emadd, user = user, usererror=usererror and cgi.escape(usererror, quote=True), passerror=passerror and cgi.escape(passerror, quote=True), conferror=conferror and cgi.escape(conferror, quote=True), emailerror=emailerror and cgi.escape(emailerror, quote=True))
 
 @app.route("/sign-up", methods=['POST'])
 def sign_up():
@@ -42,25 +45,31 @@ def sign_up():
     global emadd
     emadd = emailadd
 
+    usererror = ''
+    passerror = ''
+    conferror = ''
+    emailerror = ''
+
+    error = False
     if (' ' in username) or (len(username)<3) or (len(username)>20) or (not username):
-        error = "Username be at least 3 characters long and contain only alphanumeric characters and punctuation."
-        errorloc = 'a'
-        return redirect("/?error=" + error + '&' + '?errorloc='+errorloc)
+        usererror = "Username be at least 3 characters long and contain only alphanumeric characters and punctuation."
+        error = True
 
     if (' ' in password) or (len(password)<3) or (len(password)>20) or (not password):
-        error = "This is not a valid password."
-        errorloc = 'b'
-        return redirect("/?error=" + error + '&' + '?errorloc='+errorloc)
+        passerror = "This is not a valid password."
+        error = True
 
     if password != passconf:
-        error = "Your passwords do not match."
-        errorloc = 'c'
-        return redirect("/?error=" + error + '&' + '?errorloc='+errorloc)
-
-    if (len(emailadd)<3) or (len(emailadd)>20) or invalid_email(emailadd):
-        error = "Please enter a valid email address."
-        errorloc = 'd'
-        return redirect("/?error=" + error + '&' + '?errorloc='+errorloc)
+        conferror = "Your passwords do not match."
+        error = True
+    
+    if emailadd:
+        if (len(emailadd)<3) or (len(emailadd)>20) or invalid_email(emailadd):
+            emailerror = "Please enter a valid email address."
+            error = True
+        
+    if error:    
+        return redirect("/?usererror=" + usererror + '&' + "passerror=" + passerror +'&' + "conferror=" + conferror +'&' + "emailerror=" + emailerror)
 
     return render_template('confirmation.html',username=username)
 
